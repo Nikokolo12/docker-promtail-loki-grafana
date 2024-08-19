@@ -1,0 +1,32 @@
+---
+- name: Download promtail
+  get_url:
+    url: https://github.com/grafana/loki/releases/download/v2.4.1/promtail-linux-amd64.zip
+    dest: /tmp/promtail-linux-amd64.zip
+
+- name: Extract promtail
+  ansible.builtin.unarchive:
+    src: /tmp/promtail-linux-amd64.zip
+    dest: /tmp/
+    remote_src: true
+
+- name: Move promtail to /usr/local/bin
+  command: mv /tmp/promtail-linux-amd64 /usr/local/bin/promtail
+  become: true
+
+- name: Copy config file to the host
+  ansible.builtin.copy:
+    src: ./templates/promtail/
+    dest: "/etc/promtail/"
+    mode: "0644"
+    remote_src: no
+
+- name: Create systemd service file for node_exporter
+  ansible.builtin.copy:
+    src: ./templates/promtail-config.yaml
+    dest: "{{ service_directory }}"
+    mode: "0644"
+    remote_src: no
+  notify:
+    - Reload systemd daemon
+    - Enable and start promtail service

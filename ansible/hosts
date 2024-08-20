@@ -1,12 +1,12 @@
 [website]
-3.91.11.4
+107.21.31.88
 
 [website:vars]
 ansible_user=ubuntu
 ansible_ssh_private_key_file=/Users/sotonicole/Downloads/python-gitlab.pem 
 
 [monitor]
-34.235.135.204
+52.207.139.97
 
 [monitor:vars]
 ansible_user=ubuntu

@@ -4,6 +4,11 @@
     url: https://github.com/grafana/loki/releases/download/v2.4.1/promtail-linux-amd64.zip
     dest: /tmp/promtail-linux-amd64.zip
 
+- name: Download unzip
+  ansible.builtin.apt:
+    name: unzip
+    state: present
+
 - name: Extract promtail
   ansible.builtin.unarchive:
     src: /tmp/promtail-linux-amd64.zip
@@ -21,9 +26,9 @@
     mode: "0644"
     remote_src: no
 
-- name: Create systemd service file for node_exporter
+- name: Create systemd service file for promtail
   ansible.builtin.copy:
-    src: ./templates/promtail-config.yaml
+    src: ./templates/promtail.service
     dest: "{{ service_directory }}"
     mode: "0644"
     remote_src: no

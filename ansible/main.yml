@@ -1,14 +1,19 @@
 ---
+- name: Setup web-site
+  hosts: website
+  become: true
+  roles:
+    - nginx
+    - node-exporter
+
 - name: Setup monitoring
   hosts: monitor
   become: true
   roles:
     - docker
 
-- name: Setup web-site
+- name: Setup promtail
   hosts: website
   become: true
   roles:
-    # - nginx
-    # - node-exporter
     - promtail

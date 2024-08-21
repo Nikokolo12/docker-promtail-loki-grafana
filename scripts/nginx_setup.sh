@@ -21,7 +21,7 @@ tar xzf node_exporter-1.0.1.linux-amd64.tar.gz
 sudo cp node_exporter-1.0.1.linux-amd64/node_exporter /usr/local/bin/node_exporter
 rm -rf node_exporter-1.0.1.linux-amd64.tar.gz node_exporter-1.0.1.linux-amd64
 
-sudo cat << EOF >> /etc/systemd/system/node-exporter.service
+sudo cat << EOF >> /etc/systemd/system/node_exporter.service
 [Unit]
 Description=Prometheus Node Exporter Service
 After=network.target
@@ -37,14 +37,15 @@ WantedBy=multi-user.target
 EOF
 
 sudo systemctl daemon-reload
-sudo systemctl enable node-exporter
-sudo systemctl start node-exporter
-sudo systemctl status node-exporter
+sudo systemctl enable node_exporter
+sudo systemctl start node_exporter
+sudo systemctl status node_exporter
 
 # Install Promtail
 curl -O -L "https://github.com/grafana/loki/releases/download/v2.4.1/promtail-linux-amd64.zip"
-unzip "promtail-linux-amd64.zip"
-sudo chmod a+x "promtail-linux-amd64"
+sudo apt-get install unzip
+unzip promtail-linux-amd64.zip
+sudo chmod a+x promtail-linux-amd64
 sudo cp promtail-linux-amd64 /usr/local/bin/promtail
 sudo mkdir -p /etc/promtail /etc/promtail/logs
 
@@ -57,7 +58,7 @@ positions:
   filename: /tmp/positions.yaml
 
 clients:
-  - url: http://54.81.17.170:3100/loki/api/v1/push
+  - url: http://98.80.79.167:3100/loki/api/v1/push
 
 scrape_configs:
 - job_name: system

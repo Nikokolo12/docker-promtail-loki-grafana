@@ -16,6 +16,8 @@ services:
     volumes: 
       - ./nginx-files/:/var/www/html/
       - ./nginx-files/configs:/etc/nginx
+    ports:
+      - "80:80"
 
   node_exporter: 
     image: prom/node-exporter:v1.8.2

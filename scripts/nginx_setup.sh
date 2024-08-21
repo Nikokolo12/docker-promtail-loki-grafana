@@ -43,7 +43,7 @@ sudo systemctl status node-exporter
 
 # Install Promtail
 curl -O -L "https://github.com/grafana/loki/releases/download/v2.4.1/promtail-linux-amd64.zip"
-tar xzf "promtail-linux-amd64.zip"
+unzip "promtail-linux-amd64.zip"
 sudo chmod a+x "promtail-linux-amd64"
 sudo cp promtail-linux-amd64 /usr/local/bin/promtail
 sudo mkdir -p /etc/promtail /etc/promtail/logs
@@ -57,7 +57,7 @@ positions:
   filename: /tmp/positions.yaml
 
 clients:
-  - url: http://54.237.238.93:3100/loki/api/v1/push
+  - url: http://54.81.17.170:3100/loki/api/v1/push
 
 scrape_configs:
 - job_name: system

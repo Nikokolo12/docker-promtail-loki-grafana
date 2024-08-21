@@ -1,3 +1,4 @@
+#!/bin/bash
 # Install Docker
 sudo apt-get -y update
 sudo apt-get -y install ca-certificates curl
@@ -15,6 +16,7 @@ sudo apt-get -y install docker-ce docker-ce-cli containerd.io docker-buildx-plug
 
 # Add user to Docker 
 sudo usermod -aG docker ${USER}
+sudo chmod 666 /var/run/docker.sock 
 
 # Git clone
 git clone https://github.com/Nikokolo12/docker-promtail-loki-grafana

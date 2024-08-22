@@ -9,11 +9,18 @@ clients:
   - url: http://100.25.17.5:3100/loki/api/v1/push
 
 scrape_configs:
-  - job_name: system
-    static_configs:
-      - targets:
-          - "localhost"
-        labels:
-          job: varlogs
-          host: promtail-server
-          __path__: /var/log/*log
+  - job_name: flog_scrape
+    docker_sd_configs:
+      - host: unix:///var/run/docker.sock
+        refresh_interval: 5s
+        filters:
+          - name: label
+            values: ["logging=promtail"]
+    relabel_configs:
+      - source_labels: ["__meta_docker_container_name"]
+        regex: "/(.*)"
+        target_label: "container"
+      - source_labels: ["__meta_docker_container_log_stream"]
+        target_label: "logstream"
+      - source_labels: ["__meta_docker_container_label_logging_jobname"]
+        target_label: "job"

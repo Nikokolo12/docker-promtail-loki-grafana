@@ -7,12 +7,17 @@ services:
     command: -config.file=/etc/promtail/promtail.yml
     volumes:
       - ./promtail.yml:/etc/promtail/promtail.yml
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock
     depends_on: 
       - nginx
   
   nginx:
     image: nginx:stable-alpine3.20
     restart: always
+    labels:
+      logging: "promtail"
+      logging_jobname: "containerlogs"
     volumes: 
       - ./nginx-files/:/var/www/html/
       - ./nginx-files/configs:/etc/nginx
@@ -25,3 +30,4 @@ services:
       - 9100:9100
     depends_on:
       - nginx
+

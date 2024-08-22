@@ -2,7 +2,7 @@ version: '3.9'
 services:
 
   promtail:
-    image: grafana/promtail:2.4.0
+    image: grafana/promtail:2.9.2
     restart: always
     command: -config.file=/etc/promtail/promtail.yml
     volumes:

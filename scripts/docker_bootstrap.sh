@@ -19,4 +19,4 @@ sudo usermod -aG docker ${USER}
 sudo chmod 666 /var/run/docker.sock 
 
 # Git clone
-git clone https://github.com/Nikokolo12/docker-promtail-loki-grafana
+git clone https://github.com/Nikokolo12/website-monitoring-grafana-stack.git

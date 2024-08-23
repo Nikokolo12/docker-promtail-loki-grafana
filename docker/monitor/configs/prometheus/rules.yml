@@ -11,10 +11,19 @@ groups:
           severity: "critical"
 
       - alert: HighCPUUsage
-        expr: avg(rate(node_cpu_seconds_total{mode="idle"}[5m])) by (instance) < 0.5
+        expr: 100 - (avg by(instance) (irate(node_cpu_seconds_total{mode="idle"}[5m])) * 100) > 80
         for: 1m
         labels:
           severity: critical
         annotations:
-          description: "CPU usage is above 50% on instance {{ $labels.instance }}"
+          description: "CPU usage is above 80% on instance {{ $labels.instance }}"
           summary: "High CPU Usage Alert"
+
+      - alert: HighRAMUsage
+        expr: (1 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes)) * 100 > 80
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          description: "RAM usage is above 80% on instance {{ $labels.instance }}"
+          summary: "High RAM Usage Alert"

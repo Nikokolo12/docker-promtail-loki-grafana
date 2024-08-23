@@ -9,7 +9,7 @@ This repository provides an implementation of the Grafana monitoring stack.
   2. **Nginx Website**: A simple Nginx-based web server setup, combined with Node Exporter and Promtail to gather metrics and logs.
 
 - **scripts/**: Contains the bootstrap script to streamline the setup process.
-- ***dashboards**: Contains created templates for Loki and Prometheus dashboards
+- **dashboards/**: Contains created templates for Loki and Prometheus dashboards
 
 ## Features
 

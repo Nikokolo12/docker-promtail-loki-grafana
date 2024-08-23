@@ -1,6 +1,5 @@
-version: '3.9'
+version: "3.9"
 services:
-
   loki:
     image: grafana/loki:2.9.2
     restart: always
@@ -23,12 +22,28 @@ services:
   prometheus:
     image: prom/prometheus:main
     restart: unless-stopped
-    volumes: 
+    volumes:
       - ./configs/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./configs/prometheus/rules.yml:/config/rules.yml
       - prometheus_data:/prometheus
     command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
+      - "--config.file=/etc/prometheus/prometheus.yml"
     ports:
       - "9090:9090"
+
+  alertmanager:
+    image: prom/alertmanager:main
+    restart: unless-stopped
+    volumes:
+      - ./configs/prometheus/alertmanager.yml:/config/alertmanager.yml
+      - alert_manager_data:/data
+    command:
+      - "--config.file=/config/alertmanager.yml"
+    ports:
+      - "9093:9093"
+    depends_on:
+      - prometheus
+
 volumes:
   prometheus_data:
+  alert_manager_data:

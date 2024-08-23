@@ -19,5 +19,6 @@ This repository provides an implementation of the Grafana monitoring stack.
 - **Nginx Website**: A simple web server setup using Nginx.
 - **Node Exporter**: Collects hardware and OS metrics exposed by *NIX kernels.
 - **Promtail**: Responsible for gathering logs from the Nginx container and pushing them to Loki.
+- **AlertManager**: Sends alerts via Telegram Bot in case high RAM, CPU usage and server crash
 
 

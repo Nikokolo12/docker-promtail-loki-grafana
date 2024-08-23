@@ -10,7 +10,7 @@ route:
 receivers:
   - name: "telegram-notifications"
     telegram_configs:
-      - bot_token:
+      - bot_token: BOT_TOKEN
         api_url: https://api.telegram.org
-        chat_id:
+        chat_id: CHAT_ID
         parse_mode: ""
